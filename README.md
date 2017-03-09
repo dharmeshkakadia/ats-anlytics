@@ -1,5 +1,10 @@
 # ats-anlytics
 
+
+### Pre-requsite
+* httpie
+* jq
+
 ###how to know how many queries ran on cluster?
 
 ```
