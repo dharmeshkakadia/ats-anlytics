@@ -1,14 +1,41 @@
 <html>
-  <head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script type="text/javascript">
-      $(document).ready(function () {
-          alert('Hello, World!')
-      });
-  </script>
-  </head>
-  
-  <body>
-  Hello !
-  </body>
-</html>  
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var form = $('#appform');
+            $(form).submit(function (e) {
+                e.preventDefault();
+                
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://' + $('#clustername').val() + '.azurehdinsight.net/ws/v1/timeline/TEZ_DAG_ID',
+                    headers: {'Authorization': "Basic " + btoa($('#username').val() + ":" + $('#password').val())},
+                    dataType: 'json',
+                    sucess: function (data) {
+                        console.log(data);
+                    },
+                    error: function(data){
+                        console.log('Error'+data);
+                    }
+                })
+            })
+        });
+
+    </script>
+</head>
+
+<body>
+    Hello !
+    <form id="appform" method="post">
+              <input class="ctas-input" id="clustername" type="text" placeholder="name of the cluster" name="clustername">
+              <input class="ctas-input" id="username" type="text" placeholder="username" name="username">
+              <input class="ctas-input" id="password" type="password" placeholder="password" name="password">
+              <button class="ctas-button">
+                Analytics
+              </button>
+            </form>
+</body>
+
+</html>
